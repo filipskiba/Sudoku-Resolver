@@ -11,7 +11,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 
-public class SudokuResolver {
+public class SudokuSolver {
 
     private ValueValidators valueValidators = new ValueValidators();
     private ArrayDeque<BacktrackPoint> backtrackPoints = new ArrayDeque<>();

@@ -1,7 +1,7 @@
 package com.sudoku.controller;
 
 
-import com.sudoku.SudokuResolver;
+import com.sudoku.SudokuSolver;
 import com.sudoku.parts.SudokuBoard;
 import com.sudoku.sample.SampleBoard;
 import com.sudoku.validators.ValueValidators;
@@ -16,7 +16,7 @@ public class GameController {
     private int value;
     private String data;
     private SudokuBoard sudokuBoard = new SudokuBoard();
-    private SudokuResolver sudokuResolver = new SudokuResolver();
+    private SudokuSolver sudokuSolver = new SudokuSolver();
     private SampleBoard sampleBoard = new SampleBoard();
     private ValueValidators valueValidator = new ValueValidators();
     private final String startMessage = "Witaj w programie do rozwiazywania sudoku. \n 1 - dodaj wartosc, 2 - rozwiaz sudoku, 3 - wyswietl tablice, 4 - wyswietl przykladowa tablice, 5 - rozwiaz przykladowa tablice, 6 - wyjscie";
@@ -36,14 +36,14 @@ public class GameController {
                 break;
             case 2:
                 long start = System.nanoTime();
-                sudokuResolver.resolve(sudokuBoard);
-                if (sudokuResolver.getResolvedBoard().getEmptyElementsCount() == 0) {
+                sudokuSolver.resolve(sudokuBoard);
+                if (sudokuSolver.getResolvedBoard().getEmptyElementsCount() == 0) {
                     long end = System.nanoTime();
                     long elapsedTime = end - start;
                     double elapsedTimeInSecond = (double) elapsedTime / 1_000_000_000;
                     long convert = TimeUnit.SECONDS.convert(elapsedTime, TimeUnit.NANOSECONDS);
                     System.out.println(resolvedMessage +elapsedTimeInSecond+" sek.");
-                    sudokuBoard = sudokuResolver.getResolvedBoard();
+                    sudokuBoard = sudokuSolver.getResolvedBoard();
                     System.out.println(sudokuBoard.printBoard());
                 } else {
                     System.out.println(cantResolve);
@@ -62,10 +62,10 @@ public class GameController {
                 startGame();
                 break;
             case 5:
-                sudokuResolver.resolve(sampleBoard.getSampleBoard());
-                if (sudokuResolver.getResolvedBoard().getEmptyElementsCount() == 0) {
+                sudokuSolver.resolve(sampleBoard.getSampleBoard());
+                if (sudokuSolver.getResolvedBoard().getEmptyElementsCount() == 0) {
                     System.out.println(resolvedMessage);
-                    sudokuBoard = sudokuResolver.getResolvedBoard();
+                    sudokuBoard = sudokuSolver.getResolvedBoard();
                     System.out.println(sudokuBoard.printBoard());
                 } else {
                     System.out.println(cantResolve);
